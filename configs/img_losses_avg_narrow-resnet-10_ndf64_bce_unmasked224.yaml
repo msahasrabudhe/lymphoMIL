@@ -1,0 +1,84 @@
+model:
+    agg_mode: avg
+    test_agg_mode: avg
+    arch: narrow-resnet_10
+    pretrain: False
+    ndf: 64
+    norm_layer: nn.BatchNorm2d
+    dropout: False
+    score: False         # Whether to score every image or to return a feature vector
+    mix: False          # Whether to mix every py
+    f_size: 5
+
+    r_lme: 1.
+
+    nc: 3       # Number of channels.
+
+    use_decoder: False
+    use_encoder: False
+    upsample_mode: bilinear
+
+    cnn_dropout: -1
+
+    mlp_nhid: [2]
+    mlp_activ: nn.ReLU
+    mlp_dropout: -1
+    attr_to_use: ['lcount', 'age']
+
+    system_mode: 'I'
+
+training:
+    #Whether to load previous training
+    load_from: False
+
+    n_epochs: 1000
+    test: True
+
+    loss: bce
+    img_size: 224
+    imgs_batch_size: 32
+    subj_batch_size: -1
+    lr: 0.0001
+    weight_decay: 0.0005
+    beta1: 0.9
+
+    lr_decay: 0.1
+    lr_decay_steps: [24000, 48000, 96000, 144000]
+
+    recon_fn: l1
+    optim_alg: adam
+
+    augment: 1
+#    img_means: [126.3581,   86.1321,    149.0786]           # Unmasked images. 
+#    img_stds:  [58.6126,    67.0245,    25.8664]            # Unmasked images. 
+#    img_means: [92.42774,   46.07292,   134.90875]          # Masked images.
+#    img_stds:  [24.91995,   24.176908,  14.0374775]         # Masked images.
+#    img_means: [91.35571049,  46.62823788, 132.9763744]     # 224 x 224, masked
+#    img_stds: [26.06443043,  25.58950247, 15.78843493]      # 224 x 224, masked
+    img_means: [209.15147887,  178.78958125,  179.65400146]  # unmasked 224 x 224
+    img_stds: [1, 1, 1]
+
+    attr_means: [25.3446, 67.2113]
+    attr_stds: [44.5962, 17.5867]
+    # Statistics for lymphocyte counts -- mean: 25.3446; standard deviation: 44.5962
+    # Statistics for patient age -- mean: 67.2113; standard deviation: 17.5867
+
+    do_logging: True
+    log_dir: logs/
+
+    neg_train_until: 0
+    checkpoint_every: 1
+    autoencoder_only_epochs: 0
+
+    scale_imgs: 1
+    scale_attrs: 1
+    scale_recon: 1
+    scale_sparse: 0
+
+dataset:
+    data_root: ../data_lymphocytes/
+    mask_root: False
+    annotations_file: ground_truth.csv
+    splits_file: splits_balanced.py
+    img_ext: jpg
+    per_pixel_means: False
