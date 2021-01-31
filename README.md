@@ -6,7 +6,8 @@ This repository contains code, data, and models for the paper *Deep multi-instan
 
 Code and models will be added very soon. 
 
-The dataset can be found at this [link](https://www.dropbox.com/s/iytd7u8i6vcde3s/dataset_lymphocytes.zip?dl=0).
+The dataset can be found at this [link](https://www.dropbox.com/s/ivrdnz06lfizelq/dataset_lymphocytes.zip?dl=0).
+
 
 ## References
 
